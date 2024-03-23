@@ -12,7 +12,7 @@ public class Game extends JPanel implements Runnable{
     
     private Word[][] gameBoard;
     private String ans, displayText;
-    private Stack<Integer> keylogged;
+    
     private int playerPosRow, playerPosCol;
     private char keyPressed, keyReleased, playerkey, defaultchar;
     private List master;
@@ -24,13 +24,14 @@ public class Game extends JPanel implements Runnable{
         this.addKeyListener(this);
         new Thread(this).start();
 
-        master = new chosenword();
-        defeaultchar = 33;
         gameBoard = setBoard();
-        ans = chosenword.getRandomWord();
-        System.out.println(ans);
+        master = new chosenword();
         displayText = "";
+
+        defaultchar = 33;
+        ans = chosenword.getRandomWord();
         wordBreakdown = setWordBreakdown();
+        
         playerPosCol = 0;
         playerPosRow = 0;
         keyPressed = 7;
@@ -86,7 +87,7 @@ public Word[][] setBoard(){
     return prac;
 }
 
-public boolean isOccupied(int c, int r){
+public boolean Occupied(int c, int r){
     boolean empty = false
 
     if(gameBoard[c][r].getChar() != defaultchar)
@@ -98,7 +99,7 @@ public boolean isOccupied(int c, int r){
 public void getGuess(){
     String guess = "Try Again :)";
 
-    if(playerPosCol == 4&&isOccupied(4, playerPosRow)){
+    if(playerPosCol == 4&&Occupied(4, playerPosRow)){
         guess="";
         System.out.println("Entering guess");
         for(int i=0; i<5; i++){
@@ -176,7 +177,7 @@ public void keyReleased(java.awt.event.KeyEvent e){
         System.out.println(e.getKeyCode());
     }
 
-    if((e.getKeyCode()>=65)&&(e.getKeyCode()<=90)&&!isOccupied(playerPosCol, playerPosRow)){
+    if((e.getKeyCode()>=65)&&(e.getKeyCode()<=90)&&!Occupied(playerPosCol, playerPosRow)){
         realChar=Character.toUpperCase(e.getKeyChar());
         gameBoard[playerPosCol][playerPosRow].setChar(realChar);
         System.out.println("assigned to board""+playerPosCol"+playerPosRow );
@@ -187,7 +188,7 @@ public void keyReleased(java.awt.event.KeyEvent e){
     }
 
     if(playerkey==(char)8){
-        if(playerPosCol>0&&(playerPosCol<4||!isOccupied(4, playerPosRow)))
+        if(playerPosCol>0&&(playerPosCol<4||!Occupied(4, playerPosRow)))
         playerPosCol--;
 
         gameBoard[playerPosCol][playerPosRow].setChar(defaultchar);

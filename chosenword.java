@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class list {
 
     private static ArrayList<String> wordBank = new ArrayList<String>();
-    private File myFile = new File ("");
+    private File myFile = new File ("wordlist.txt");
 
     public list(){
         String randomword = new String();
